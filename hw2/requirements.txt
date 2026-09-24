@@ -1,0 +1,9 @@
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-chroma
+langchain-google-genai
+pypdf
+docx2txt
+# optional: only needed when EMBEDDING_BACKEND=vertex
+# langchain-google-vertexai
