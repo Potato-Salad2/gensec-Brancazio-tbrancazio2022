@@ -1,0 +1,1 @@
+Computer networks allow devices to communicate with each other. An IP address identifies a device on a network. TCP provides reliable, ordered delivery of data, while UDP provides faster communication without guaranteeing delivery.

@@ -1,0 +1,1 @@
+Quantum computing uses quantum bits, called qubits. A qubit can represent a quantum state involving both 0 and 1. Quantum gates manipulate qubits, and measurements produce classical results.

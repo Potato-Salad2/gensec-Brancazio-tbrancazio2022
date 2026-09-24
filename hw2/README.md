@@ -34,8 +34,10 @@ python -m venv .venv && source .venv/bin/activate    # or: uv venv && source .ve
 pip install -r requirements.txt
 
 export GOOGLE_API_KEY="your-ai-studio-key"   # required; never put the key in app.py
-export GOOGLE_MODEL="gemini-3.5-flash"        # optional (this is the default)
+export HW2_MODEL="gemini-3.5-flash"           # optional (this is the default)
 ```
+
+The app uses `gemini-3.5-flash` and ignores the shared `GOOGLE_MODEL` variable, which may point to a model that is out of quota. To try a different model for this app only, set `HW2_MODEL`.
 
 To use Vertex AI embeddings instead (higher quota, uses the course's GCP credits, as in `07_rag_loaddb.py`):
 
@@ -54,7 +56,8 @@ Put your documents in `hw2/rag_data/`. Subfolders are fine, and the folder is gi
 ```bash
 python app.py ingest                 # index ./rag_data (or: python app.py ingest path/to/folder)
 python app.py sources                # list indexed documents
-python app.py search "firewall"      # show matching chunks (no Gemini call)
+python app.py search "firewall"      # document search: matching chunks + distance scores (no Gemini call)
+python app.py search "firewall" -k 3 # show only the top 3 matches
 python app.py chat                   # ask questions (also the default with no command)
 python app.py reset                  # delete the vector database
 ```
@@ -80,3 +83,10 @@ Sources:
 - Embedding 429 / `RESOURCE_EXHAUSTED` errors are retried with exponential backoff.
 - API errors during chat are shown as one line, and the session keeps running.
 - If a question isn't answered by the documents, Gemini replies "I couldn't find that in your documents."
+
+## AI assistance disclosure
+
+`app.py`, `requirements.txt` and this README were generated with Claude Code (Anthropic's Claude), working from the course examples in `02_LangChain/07_RAG`.
+
+- **Adapted from the course examples:** Chroma vector store setup, the `gemini-embedding-001` embeddings (including the Vertex AI option), the document loaders and `RecursiveCharacterTextSplitter`, the `prompt | llm | StrOutputParser()` RAG chain and the basic prompt wording, listing indexed sources, and the `input()` question loop.
+- **Written by the AI assistant:** the command-line commands (`ingest`, `sources`, `search`, `chat`, `reset`), environment variable checks, loading files one at a time and skipping unreadable ones, content-hash chunk IDs to avoid duplicates, batched embedding with rate-limit retries, numbered citations and the prompt-injection instruction, showing only the cited sources, the Document Search feature (similarity search with distance scores and `-k`, modeled on `08_rag_docsearch.py`), short error messages, and the docstrings and comments.
