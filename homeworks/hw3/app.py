@@ -1,4 +1,5 @@
 import os
+import requests
 
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
@@ -15,9 +16,33 @@ tools = load_tools(
     allow_dangerous_tools = True
 )
 
-wiki = WikipediaQueryRun(api_wrapper = WikipediaAPIWrapper())
+@tool
+def wikipedia_search(query):
+    """Search Wikipedia for general background information."""
 
-tools.append(wiki)
+    response = requests.get(
+        "https://en.wikipedia.org/w/api.php",
+        headers={"User-Agent": "SecurityInvestigationAgent/1.0"},
+        params={
+            "action": "query",
+            "list": "search",
+            "srsearch": query,
+            "format": "json"
+        }
+    )
+
+    data = response.json()
+    results = data["query"]["search"]
+
+    if not results:
+        return "No Wikipedia results were found."
+
+    return "\n".join(
+        f"{result['title']}: {result['snippet']}"
+        for result in results[:3]
+    )
+
+tools.append(wikipedia_search)
 
 @tool
 def security_tip(topic):
