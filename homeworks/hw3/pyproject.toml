@@ -1,0 +1,24 @@
+[project]
+name = "hw3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Potato-Salad2", email = "tbrancazio2022@fau.edu" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=1.4.3",
+    "langchain-community>=0.4.2",
+    "langchain-experimental>=0.4.2",
+    "langchain-google-genai>=4.4.0",
+    "mypy-extensions>=1.1.0",
+    "wikipedia>=1.4.0",
+]
+
+[project.scripts]
+hw3 = "hw3:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
