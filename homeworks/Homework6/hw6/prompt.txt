@@ -1,0 +1,10 @@
+1. Build a single file Python Flask web app in app.py tbat lets a user upload a .pcap, .pcapng or .cap through a web form and analyzes the traffic with scapy.
+
+2. can you make test .pcap/.pcapng/.cap i can use, to test it
+
+3. now also show thhe top 10 busiest computers by packets and bytes, the top 10 destination ports with thier service name like 80 = HTTP, and the top conversations between two computers with thier packet and byte total
+
+4. Turn the results into a dashboard on the same page. Use Chart.js for a pie chart of the protocols, a bar chart for the top services, and a line chart for traffic over time, also add a definition part where we describe what each protocal means
+
+5. Make the app safe from bad uploads, only allow .pcap/.pcapng/.cap files. Clean the file name, save each upload a temp folder and delete it after reading, stop after 200,000 packets, turn off debug mode, and show a error
+message if the file is broken instead of crashing
